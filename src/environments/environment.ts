@@ -7,13 +7,14 @@ export const environment = {
   oAuth: {
     google: {
       client_id:
-        '377801554737-c6kmgufst864r3de6fk3b37k9b2m3qtr.apps.googleusercontent.com',
-      project_id: 'dogwood-flames-294814',
+        '435112618636-4h4v3kgdo4hfjj1oqdjkq1ijnpj5ptbo.apps.googleusercontent.com',
+      project_id: 'auth-chat-353200',
       auth_uri: 'https://accounts.google.com/o/oauth2/auth',
       token_uri: 'https://oauth2.googleapis.com/token',
       auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-      client_secret: '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',
-      javascript_origins: ['http://localhost:4200'],
+      client_secret: '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',
+      redirect_uris: ['http://localhost:4200', 'http://localhost'],
+      javascript_origins: ['http://localhost:4200', 'http://localhost'],
     },
   },
 };
