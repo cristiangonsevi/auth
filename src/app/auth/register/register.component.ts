@@ -1,5 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { SignInType } from '../enums/signInType.enum';
+import { AuthService } from '../services/auth.service';
 declare const google: any;
 @Component({
   selector: 'app-register',
@@ -7,31 +9,33 @@ declare const google: any;
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  @ViewChild('googleBtn') googleBtn!: ElementRef;
-  constructor() {}
+  constructor(private _authService: AuthService) {}
 
   ngOnInit(): void {
     this.renderGoogleBtn();
+    console.log('token', this._authService);
   }
   onSignInCallback(event: any) {
     console.log('sign in callback', event);
   }
   renderGoogleBtn() {
+    const self = this;
     google.accounts.id.initialize({
       client_id: environment.oAuth.google.client_id,
-      callback: this.handleCredentialResponse,
+      callback: (...args: any) => {
+        console.log('google initialized', args);
+        this.customRegisterMethod(args[0].credential);
+      },
     });
     google.accounts.id.renderButton(
       document.getElementById('buttonDiv'),
       { theme: 'outline', size: 'small', with: '10px' } // customization attributes
     );
   }
-  handleCredentialResponse(response: any) {
-    console.log('Encoded JWT ID token: ' + response.credential);
-  }
-  openPopUpGoogle() {
-    console.log('openPopUpGoogle');
-    const btn: HTMLElement = this.googleBtn.nativeElement;
-    btn.click();
+  customRegisterMethod(token: any) {
+    this._authService?.registerCustomAuth(token, SignInType.GOOGLE).subscribe({
+      next: (data: any) => console.log(data),
+      error: (err: any) => console.log(err),
+    });
   }
 }
