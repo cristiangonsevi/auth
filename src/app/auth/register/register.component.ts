@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { environment } from 'src/environments/environment';
 import { SignInType } from '../enums/signInType.enum';
 import { AuthService } from '../services/auth.service';
@@ -9,7 +10,10 @@ declare const google: any;
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private _authService: AuthService) {}
+  constructor(
+    private _authService: AuthService,
+    private _sweetAlert: SweetAlertService
+  ) {}
 
   ngOnInit(): void {
     this.renderGoogleBtn();
@@ -34,8 +38,20 @@ export class RegisterComponent implements OnInit {
   }
   customRegisterMethod(token: any) {
     this._authService?.registerCustomAuth(token, SignInType.GOOGLE).subscribe({
-      next: (data: any) => console.log(data),
-      error: (err: any) => console.log(err),
+      next: (data: any) => this.handleCustomAuthSignIn(data),
+      error: (err: any) =>
+        this._sweetAlert.toast({
+          title: 'Error',
+          text: err.error.message,
+          icon: 'error',
+        }),
+    });
+  }
+  handleCustomAuthSignIn(data: any) {
+    this._sweetAlert.toast({
+      title: 'Success',
+      text: data.message,
+      icon: 'success',
     });
   }
 }
