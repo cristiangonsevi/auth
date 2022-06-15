@@ -4,6 +4,10 @@
 
 export const environment = {
   production: false,
+  api: {
+    host: 'http://localhost',
+    url: 'http://localhost:3000',
+  },
   oAuth: {
     google: {
       client_id:
