@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
+import { environment } from 'src/environments/environment';
+import { SignInType } from '../enums/signInType.enum';
 import { LoginResponse } from '../interfaces/responses/loginResponse.model';
 import { AuthService } from '../services/auth.service';
-
+declare const google: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,11 +23,35 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initLoginForm();
+    this.renderGoogleBtn();
   }
   initLoginForm() {
     this.loginForm = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+    });
+  }
+  renderGoogleBtn() {
+    google.accounts.id.initialize({
+      client_id: environment.oAuth.google.client_id,
+      callback: (response: any) => {
+        this.customLoginMethod(response.credential);
+      },
+    });
+    google.accounts.id.renderButton(
+      document.getElementById('buttonDiv'),
+      { theme: 'outline', size: 'medium' } // customization attributes
+    );
+  }
+  customLoginMethod(token: any) {
+    this._authService?.loginWithCustomAuth(token, SignInType.GOOGLE).subscribe({
+      next: (data: any) => this.handleSignIn(data),
+      error: (err: any) =>
+        this._sweetAlert.toast({
+          title: err.error.error + ' code: ' + err.error.statusCode,
+          text: err.error.message,
+          icon: 'error',
+        }),
     });
   }
   onSubmit(): any {
