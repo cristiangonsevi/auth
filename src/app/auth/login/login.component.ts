@@ -36,7 +36,9 @@ export class LoginComponent implements OnInit {
     });
   }
   checkLoginByParamToken() {
-    const data = JSON.parse(atob(this._activatedRoute.snapshot.queryParams['token']));
+    const token = this._activatedRoute.snapshot.queryParams['token'];
+    if (!token) return;
+    const data = JSON.parse(atob(token));
     if (data) {
       this._localStorage.setItem('currenDatatUser', data.data);
       this.handleSignIn(data);
