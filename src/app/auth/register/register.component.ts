@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { environment } from 'src/environments/environment';
 import { SignInType } from '../enums/signInType.enum';
@@ -12,15 +14,19 @@ declare const google: any;
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  githubOAuth = environment.oAuth.github;
   constructor(
     private _authService: AuthService,
     private _sweetAlert: SweetAlertService,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _activatedRoute: ActivatedRoute,
+    private _localStorage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
     this.renderGoogleBtn();
     this.initRegisterForm();
+    this.checkLoginByParamToken();
   }
   initRegisterForm() {
     this.registerForm = this._fb.group({
@@ -29,6 +35,15 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
+  }
+  checkLoginByParamToken() {
+    const token = this._activatedRoute.snapshot.queryParams['token'];
+    if (!token) return;
+    const data = JSON.parse(atob(token));
+    if (data) {
+      this._localStorage.setItem('currenDatatUser', data.data);
+      this.handleSignIn(data);
+    }
   }
   renderGoogleBtn() {
     google.accounts.id.initialize({
@@ -68,7 +83,7 @@ export class RegisterComponent implements OnInit {
   }
   handleSignIn(data: any) {
     this._sweetAlert.toast({
-      title: 'Success',
+      title: 'Registration Successful',
       text: data.message,
       icon: 'success',
     });

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { environment } from 'src/environments/environment';
@@ -14,22 +15,34 @@ declare const google: any;
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  githubOAuth = environment.oAuth.github;
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
     private _sweetAlert: SweetAlertService,
-    private _localStorage: LocalStorageService
+    private _localStorage: LocalStorageService,
+    private _activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.initLoginForm();
     this.renderGoogleBtn();
+    this.checkLoginByParamToken();
   }
   initLoginForm() {
     this.loginForm = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
+  }
+  checkLoginByParamToken() {
+    const token = this._activatedRoute.snapshot.queryParams['token'];
+    if (!token) return;
+    const data = JSON.parse(atob(token));
+    if (data) {
+      this._localStorage.setItem('currenDatatUser', data.data);
+      this.handleSignIn(data);
+    }
   }
   renderGoogleBtn() {
     google.accounts.id.initialize({

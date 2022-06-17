@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthRoutingModule } from './auth-routing.module';
 
 
 
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     RouterModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthRoutingModule
   ],
   providers: [AuthService]
 })
