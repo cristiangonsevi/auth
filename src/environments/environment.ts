@@ -9,16 +9,12 @@ export const environment = {
     url: 'http://localhost:3000',
   },
   oAuth: {
+    github: {
+      client_id: 'cc92af7bafbb1d436318',
+    },
     google: {
       client_id:
         '435112618636-4h4v3kgdo4hfjj1oqdjkq1ijnpj5ptbo.apps.googleusercontent.com',
-      project_id: 'auth-chat-353200',
-      auth_uri: 'https://accounts.google.com/o/oauth2/auth',
-      token_uri: 'https://oauth2.googleapis.com/token',
-      auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-      client_secret: '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',
-      redirect_uris: ['http://localhost:4200', 'http://localhost'],
-      javascript_origins: ['http://localhost:4200', 'http://localhost'],
     },
   },
 };
