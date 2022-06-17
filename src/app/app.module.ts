@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { LocalStorageService } from './services/local-storage.service';
 import { SweetAlertService } from './services/sweet-alert.service';
 
 @NgModule({
@@ -15,7 +16,7 @@ import { SweetAlertService } from './services/sweet-alert.service';
     AppRoutingModule,
     AuthModule
   ],
-  providers: [SweetAlertService],
+  providers: [SweetAlertService, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
