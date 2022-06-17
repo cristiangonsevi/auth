@@ -61,9 +61,10 @@
         or continue with these social profile
       </p>
       <div class="social-container mx-auto text-center">
-        <a href="" class="fa fa-facebook bg-blue-700 text-white rounded-full px-3 py-2 m-1 hover:bg-blue-400"></a>
-        <a href="" class="fa fa-twitter bg-blue-300 text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
-        <a href="" class="fa fa-github bg-black text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
+        <a href="" class="hidden fa fa-facebook bg-blue-700 text-white rounded-full px-3 py-2 m-1 hover:bg-blue-400"></a>
+        <a href="" class="hidden fa fa-twitter bg-blue-300 text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
+        <a href="https://github.com/login/oauth/authorize?client_id={{githubOAuth.client_id}}&scope=read:user,user:email"
+          class="fa fa-github bg-black text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
       </div>
       <p class="text-xs text-slate-400 text-center py-3">
         Already have an account?

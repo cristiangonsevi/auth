@@ -5,7 +5,8 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="input-group relative">
           <i class="fa fa-envelope absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
-          <input formControlName="email" [ngClass]="{'border-red-500' : loginForm.controls['email']?.touched && loginForm.controls['email']?.invalid }"
+          <input formControlName="email"
+            [ngClass]="{'border-red-500' : loginForm.controls['email']?.touched && loginForm.controls['email']?.invalid }"
             class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="email" placeholder="Email" />
         </div>
         <div class="text-red-500 text-xs"
@@ -14,7 +15,8 @@
         </div>
         <div class="input-group relative">
           <i class="fa fa-lock absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
-          <input formControlName="password" [ngClass]="{'border-red-500' : loginForm.controls['password']?.touched && loginForm.controls['password']?.invalid }"
+          <input formControlName="password"
+            [ngClass]="{'border-red-500' : loginForm.controls['password']?.touched && loginForm.controls['password']?.invalid }"
             class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="password"
             placeholder="Password" />
         </div>
@@ -39,9 +41,10 @@
         or continue with these social profile
       </p>
       <div class="social-container mx-auto text-center">
-        <a href="" class="fa fa-facebook bg-blue-700 text-white rounded-full px-3 py-2 m-1 hover:bg-blue-400"></a>
-        <a href="" class="fa fa-twitter bg-blue-300 text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
-        <a href="" class="fa fa-github bg-black text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
+        <a href="" class="hidden fa fa-facebook bg-blue-700 text-white rounded-full px-3 py-2 m-1 hover:bg-blue-400"></a>
+        <a href="" class="hidden fa fa-twitter bg-blue-300 text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
+        <a href="https://github.com/login/oauth/authorize?client_id={{githubOAuth.client_id}}&scope=read:user,user:email"
+          class="fa fa-github bg-black text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
       </div>
       <p class="text-xs text-slate-400 text-center py-3">
         Don't have an account?
