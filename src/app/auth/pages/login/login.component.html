@@ -1,0 +1,55 @@
+<div class="container mx-auto min-h-screen flex justify-center items-center">
+  <div class="w-6/12 md:w-5/12 lg:w-2/6 xl:w-1/4 2xl:w-1/5">
+    <div class="card px-5 py-5 border-slate-300 border-2 rounded-lg">
+      <p class="font-bold py-4">Login</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="input-group relative">
+          <i class="fa fa-envelope absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
+          <input formControlName="email"
+            [ngClass]="{'border-red-500' : loginForm.controls['email']?.touched && loginForm.controls['email']?.invalid }"
+            class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="email" placeholder="Email" />
+        </div>
+        <div class="text-red-500 text-xs"
+          *ngIf="loginForm.controls['email'].touched && loginForm.controls['email']?.invalid">
+          email is required
+        </div>
+        <div class="input-group relative">
+          <i class="fa fa-lock absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
+          <input formControlName="password"
+            [ngClass]="{'border-red-500' : loginForm.controls['password']?.touched && loginForm.controls['password']?.invalid }"
+            class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="password"
+            placeholder="Password" />
+        </div>
+        <div class="text-red-500 text-xs"
+          *ngIf="loginForm.controls['password'].touched && loginForm.controls['password']?.invalid">
+          password is required
+        </div>
+        <div class="btn-container text-center">
+          <button type="submit"
+            class="text-sm text-center w-5/6 bg-blue-700 hover:bg-blue-300 text-white rounded py-2 my-1">
+            Sign in!
+          </button>
+        </div>
+      </form>
+      <p class="text-center text-xs text-slate-400 py-3">
+        or continue with google
+      </p>
+      <div class="mx-auto text-center flex justify-center items-center">
+        <div id="buttonDiv" #googleBtn></div>
+      </div>
+      <p class="text-center text-xs text-slate-400 py-3">
+        or continue with these social profile
+      </p>
+      <div class="social-container mx-auto text-center">
+        <a href="" class="hidden fa fa-facebook bg-blue-700 text-white rounded-full px-3 py-2 m-1 hover:bg-blue-400"></a>
+        <a href="" class="hidden fa fa-twitter bg-blue-300 text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
+        <a href="https://github.com/login/oauth/authorize?client_id={{githubOAuth.client_id}}&scope=read:user,user:email"
+          class="fa fa-github bg-black text-white rounded-full p-2 m-1 hover:bg-blue-400"></a>
+      </div>
+      <p class="text-xs text-slate-400 text-center py-3">
+        Don't have an account?
+        <a [routerLink]="['/auth/register']" class="text-blue-700 underline">Register</a>
+      </p>
+    </div>
+  </div>
+</div>
