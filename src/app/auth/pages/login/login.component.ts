@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
     private _sweetAlert: SweetAlertService,
     private _localStorage: LocalStorageService,
     private _activatedRoute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +49,10 @@ export class LoginComponent implements OnInit {
   renderGoogleBtn() {
     google.accounts.id.initialize({
       client_id: environment.oAuth.google.client_id,
-      callback: (response: any) => {
-        this.customLoginMethod(response.credential);
-      },
+      callback: (response: any) =>
+        this._ngZone.run(() => {
+          this.customLoginMethod(response.credential);
+        }),
     });
     google.accounts.id.renderButton(
       document.getElementById('buttonDiv'),
