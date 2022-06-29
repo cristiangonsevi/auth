@@ -17,10 +17,10 @@
           aria-haspopup="true"
         >
           <img
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZSUyMHBob3RvfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+            src="{{currentUser.image}}"
             class="w-12 mr-2 aspect-square object-cover object-top rounded"
           />
-          {{ "Cristian Gonzalez" }}
+          {{ currentUser.firstName }} {{ currentUser.lastName }}
           <svg
             class="-mr-1 ml-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"

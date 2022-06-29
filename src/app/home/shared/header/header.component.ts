@@ -1,4 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { User } from 'src/app/auth/interfaces/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +8,7 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  currentUser!: User;
   toggleMenu: boolean = false;
 
   @HostListener('document:click', ['$event'])
@@ -14,7 +17,8 @@ export class HeaderComponent implements OnInit {
       this.toggleMenu = false;
     }
   }
-  constructor(private _eRef: ElementRef) {}
-
-  ngOnInit(): void {}
+  constructor(private _eRef: ElementRef, private _userService: UserService) {}
+  ngOnInit(): void {
+    this.currentUser = this._userService.getUserLoggedIn();
+  }
 }
