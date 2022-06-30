@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     if (!token) return;
     const data = JSON.parse(atob(token));
     if (data) {
-      this._localStorage.setItem('currenDatatUser', data.data);
+      this._localStorage.setItem('currentDataUser', data.data);
       this.handleSignIn(data);
     }
   }
