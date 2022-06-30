@@ -1,4 +1,6 @@
-<div class="header bg-slate-100 p-2 md:py-4 md:px-20 flex justify-between items-center">
+<div
+  class="header bg-slate-100 p-2 md:py-4 md:px-20 flex justify-between items-center"
+>
   <div class="logo">
     <img
       src="https://upload.wikimedia.org/wikipedia/commons/2/2c/OneWeb_Logo.png"
@@ -17,7 +19,7 @@
           aria-haspopup="true"
         >
           <img
-            src="{{currentUser.image}}"
+            src="{{ host.api.url }}/user/image?name={{ currentUser.image }}"
             class="w-9 md:w-12 mr-2 aspect-square object-cover object-top rounded"
           />
           {{ currentUser.firstName }} {{ currentUser.lastName }}

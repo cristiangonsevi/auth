@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/auth/interfaces/user.model';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent implements OnInit {
   currentUser!: User;
   toggleMenu: boolean = false;
+  host = environment
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
