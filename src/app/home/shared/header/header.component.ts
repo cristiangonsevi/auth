@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/auth/interfaces/user.model';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,8 +18,16 @@ export class HeaderComponent implements OnInit {
       this.toggleMenu = false;
     }
   }
-  constructor(private _eRef: ElementRef, private _userService: UserService) {}
+  constructor(
+    private _eRef: ElementRef,
+    private _userService: UserService,
+    private _router: Router
+  ) {}
   ngOnInit(): void {
     this.currentUser = this._userService.getUserLoggedIn();
+  }
+  logout() {
+    this._userService.removeUser();
+    this._router.navigate(['/auth/login']);
   }
 }
