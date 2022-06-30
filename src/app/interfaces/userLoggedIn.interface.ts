@@ -5,6 +5,8 @@ export interface UserLoggedIn {
   firstName: string;
   id: number;
   image: string;
+  bio: string;
+  phone: string;
   isActive: true;
   lastName: string;
 }
