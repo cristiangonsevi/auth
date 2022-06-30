@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     if (!token) return;
     const data = JSON.parse(atob(token));
     if (data) {
-      this._localStorage.setItem('currenDatatUser', data.data);
+      this._localStorage.setItem('currentDataUser', data.data);
       this.handleSignIn(data);
     }
   }
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
     });
   }
   handleSignIn(data: LoginResponse) {
-    this._localStorage.setItem('currenDatatUser', data.data);
+    this._localStorage.setItem('currentDataUser', data.data);
     this._router.navigate(['/home']);
     this._sweetAlert.toast({
       title: 'Welcome again',
