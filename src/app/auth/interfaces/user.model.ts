@@ -4,6 +4,8 @@ export interface User {
   lastName: string;
   email: string;
   image: string;
+  bio: string;
+  phone: string;
   authMethod: string;
   isActive: boolean;
   createdAt: string;

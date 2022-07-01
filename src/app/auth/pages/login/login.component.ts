@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { environment } from 'src/environments/environment';
-import { SignInType } from '../enums/signInType.enum';
-import { LoginResponse } from '../interfaces/responses/loginResponse.model';
-import { AuthService } from '../services/auth.service';
+import { SignInType } from '../../enums/signInType.enum';
+import { LoginResponse } from '../../interfaces/responses/loginResponse.model';
+import { AuthService } from '../../services/auth.service';
 declare const google: any;
 @Component({
   selector: 'app-login',
@@ -21,7 +21,9 @@ export class LoginComponent implements OnInit {
     private _authService: AuthService,
     private _sweetAlert: SweetAlertService,
     private _localStorage: LocalStorageService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+    private _ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -40,16 +42,17 @@ export class LoginComponent implements OnInit {
     if (!token) return;
     const data = JSON.parse(atob(token));
     if (data) {
-      this._localStorage.setItem('currenDatatUser', data.data);
+      this._localStorage.setItem('currentDataUser', data.data);
       this.handleSignIn(data);
     }
   }
   renderGoogleBtn() {
     google.accounts.id.initialize({
       client_id: environment.oAuth.google.client_id,
-      callback: (response: any) => {
-        this.customLoginMethod(response.credential);
-      },
+      callback: (response: any) =>
+        this._ngZone.run(() => {
+          this.customLoginMethod(response.credential);
+        }),
     });
     google.accounts.id.renderButton(
       document.getElementById('buttonDiv'),
@@ -68,7 +71,6 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit(): any {
-    console.log(this.loginForm.value);
     if (this.loginForm.invalid) {
       Object.keys(this.loginForm.controls).forEach((key) => {
         if (this.loginForm.controls[key].invalid) {
@@ -92,7 +94,8 @@ export class LoginComponent implements OnInit {
     });
   }
   handleSignIn(data: LoginResponse) {
-    this._localStorage.setItem('currenDatatUser', data.data);
+    this._localStorage.setItem('currentDataUser', data.data);
+    this._router.navigate(['/home']);
     this._sweetAlert.toast({
       title: 'Welcome again',
       text: data.data.firstName + ' ' + data.data.lastName,

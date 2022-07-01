@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { environment } from 'src/environments/environment';
-import { SignInType } from '../enums/signInType.enum';
-import { AuthService } from '../services/auth.service';
+import { SignInType } from '../../enums/signInType.enum';
+import { AuthService } from '../../services/auth.service';
 declare const google: any;
 @Component({
   selector: 'app-register',
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     if (!token) return;
     const data = JSON.parse(atob(token));
     if (data) {
-      this._localStorage.setItem('currenDatatUser', data.data);
+      this._localStorage.setItem('currentDataUser', data.data);
       this.handleSignIn(data);
     }
   }
@@ -58,7 +58,6 @@ export class RegisterComponent implements OnInit {
     );
   }
   registerWithEmail(): any {
-    console.log(this.registerForm.value);
     if (this.registerForm.invalid) {
       Object.keys(this.registerForm.controls).forEach((key) => {
         if (this.registerForm.controls[key].invalid) {
