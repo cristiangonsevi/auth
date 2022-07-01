@@ -6,18 +6,15 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SharedModule } from './shared/shared.module';
 import { LayoutComponent } from './layout/layout.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    LayoutComponent,
-    ProfileComponent
-  ],
+  declarations: [DashboardComponent, LayoutComponent, ProfileComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    ReactiveFormsModule,
+  ],
 })
-export class HomeModule { }
+export class HomeModule {}
