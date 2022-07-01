@@ -79,6 +79,8 @@ export class ProfileComponent implements OnInit {
   }
   handleUpdateUserImage(resp: any) {
     this.isUploadingImg = false;
+    this.currentUser.image = resp.file.filename
+    this._localStorageService.setItem('currentDataUser', this.currentUser)
     this._sweetAlert.toast({
       title: 'Image updated successfully!',
       icon: 'success',
