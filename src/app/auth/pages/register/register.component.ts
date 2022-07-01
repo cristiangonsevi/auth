@@ -58,7 +58,6 @@ export class RegisterComponent implements OnInit {
     );
   }
   registerWithEmail(): any {
-    console.log(this.registerForm.value);
     if (this.registerForm.invalid) {
       Object.keys(this.registerForm.controls).forEach((key) => {
         if (this.registerForm.controls[key].invalid) {

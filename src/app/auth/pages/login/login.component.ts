@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit(): any {
-    console.log(this.loginForm.value);
     if (this.loginForm.invalid) {
       Object.keys(this.loginForm.controls).forEach((key) => {
         if (this.loginForm.controls[key].invalid) {
