@@ -1,9 +1,9 @@
 <div class="flex justify-center items-center min-h-full">
-  <div class="w-11/12 md:w-5/12 my-4 text-center py-4">
+  <div class="w-11/12 sm:w-9/12 md:w-9/12 lg:w-5/12 my-4 text-center py-4">
     <h1 class="font-bold text-2xl">Personal info</h1>
     <p class="text-sm">Basic info, like your name and photo</p>
     <div class="border border-slate-200 rounded-lg my-3 break-words">
-      <div class="header flex flex-wrap p-2 md:py-4 md:px-7">
+      <div class="header flex flex-wrap p-2 sm:px-5 md:py-4 md:px-7">
         <div class="w-4/6 text-left">
           <p class="font-bold text-xl">Profile</p>
           <p class="text-xs text-slate-400">
@@ -12,13 +12,14 @@
         </div>
         <div class="w-2/6 self-center p-2">
           <button
+            [routerLink]="['/home/profile']"
             class="border border-slate-200 px-5 py-2 rounded-2xl capitalize hover:bg-slate-600 hover:text-white"
           >
             edit
           </button>
         </div>
       </div>
-      <div class="flex flex-wrap border-t p-2 md:py-4 md:px-7">
+      <div class="flex flex-wrap border-t p-2 sm:px-5 md:py-4 md:px-7">
         <div class="w-6/12 md:w-2/6 text-left self-center">
           <p class="uppercase text-xs text-slate-400">Photo</p>
         </div>
@@ -30,31 +31,37 @@
           />
         </div>
       </div>
-      <div class="flex flex-wrap border-t p-2 md:py-4 md:px-7">
+      <div class="flex flex-wrap border-t p-2 sm:px-5 md:py-4 md:px-7">
         <div class="w-6/12 md:w-2/6 text-left self-center">
           <p class="uppercase text-xs text-slate-400">name</p>
         </div>
         <div class="w-6/12 md:w-4/6 self-center text-left">
-          <p class="text-xs md:text-md">{{ currentUser.firstName }} {{ currentUser.lastName }}</p>
+          <p class="text-xs md:text-md">
+            {{ currentUser.firstName }} {{ currentUser.lastName }}
+          </p>
         </div>
       </div>
-      <div class="flex flex-wrap border-t p-2 md:py-4 md:px-7">
+      <div class="flex flex-wrap border-t p-2 sm:px-5 md:py-4 md:px-7">
         <div class="w-6/12 md:w-2/6 text-left self-center">
           <p class="uppercase text-xs text-slate-400">bio</p>
         </div>
         <div class="w-6/12 md:w-4/6 self-center text-left">
-          <p class="text-xs md:text-md">{{ currentUser.bio ? currentUser.bio : '-' }}</p>
+          <p class="text-xs md:text-md">
+            {{ currentUser.bio ? currentUser.bio : "-" }}
+          </p>
         </div>
       </div>
-      <div class="flex flex-wrap border-t p-2 md:py-4 md:px-7">
+      <div class="flex flex-wrap border-t p-2 sm:px-5 md:py-4 md:px-7">
         <div class="w-6/12 md:w-2/6 text-left self-center">
           <p class="uppercase text-xs text-slate-400">phone</p>
         </div>
         <div class="w-6/12 md:w-4/6 self-center text-left">
-          <p class="text-xs md:text-md">{{ currentUser.phone ? currentUser.phone : '-' }}</p>
+          <p class="text-xs md:text-md">
+            {{ currentUser.phone ? currentUser.phone : "-" }}
+          </p>
         </div>
       </div>
-      <div class="flex flex-wrap border-t p-2 md:py-4 md:px-7">
+      <div class="flex flex-wrap border-t p-2 sm:px-5 md:py-4 md:px-7">
         <div class="w-6/12 md:w-2/6 text-left self-center">
           <p class="uppercase text-xs text-slate-400">email</p>
         </div>
@@ -62,7 +69,7 @@
           <p class="text-xs md:text-md">{{ currentUser.email }}</p>
         </div>
       </div>
-      <div class="flex flex-wrap border-t p-2 md:py-4 md:px-7">
+      <div class="flex flex-wrap border-t p-2 sm:px-5 md:py-4 md:px-7">
         <div class="w-6/12 md:w-2/6 text-left self-center">
           <p class="uppercase text-xs text-slate-400">password</p>
         </div>
