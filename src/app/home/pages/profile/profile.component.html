@@ -1,1 +1,161 @@
-<p>profile works!</p>
+<div class="flex justify-center items-center min-h-full">
+  <div class="w-11/12 sm:w-9/12 md:w-9/12 lg:w-5/12 my-4 text-left py-4">
+    <a [routerLink]="['/home']">
+      <p
+        class="capitalize bg-slate-500 w-20 rounded-2xl px-2 border text-white hover:border hover:border-slate-500 hover:text-slate-500 hover:bg-white"
+      >
+        <i class="fa fa-arrow-left text-xs" aria-hidden="true"></i>
+        back
+      </p>
+    </a>
+    <div class="border border-slate-200 rounded-lg sm:px-4 my-3 break-words">
+      <div class="header flex flex-wrap p-2 md:py-4 md:px-7">
+        <div class="w-full text-left">
+          <p class="font-bold text-xl">Change Info</p>
+          <p class="text-xs text-slate-400">
+            Changes will be reflected to every services
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap p-2 md:py-4 md:px-7">
+        <div
+          class="w-auto text-left self-center relative bg-black rounded-2xl cursor-pointer"
+        >
+          <label for="profileImg">
+            <img
+              src="{{ host.api.url }}/user/image?name={{ currentUser.image }}"
+              alt="profile_photo"
+              class="w-20 p-1 aspect-square object-cover object-top rounded opacity-70 text-center"
+            />
+            <div class="fa-2x absolute top-5 left-6" *ngIf="isUploadingImg">
+              <i
+                class="fa fa-spinner fa-spin text-white"
+                aria-hidden="true"
+              ></i>
+            </div>
+            <i
+              *ngIf="!isUploadingImg"
+              class="fa fa-camera text-white hover:text-blue-400 text-xl absolute top-7 left-8"
+              aria-hidden="true"
+            ></i>
+          </label>
+          <input
+            id="profileImg"
+            (change)="uploadImage($event)"
+            type="file"
+            accept="image/jpg,image/png,image/jpeg"
+            hidden
+          />
+        </div>
+        <div class="w-6/12 md:w-4/6 self-center text-left pl-5">
+          <label
+            for="profileImg"
+            class="uppercase text-xs text-slate-400 cursor"
+            >change photo</label
+          >
+        </div>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+        <div class="flex flex-wrap p-2 md:py-4 md:px-7">
+          <div class="w-8/12 text-left self-center mb-2">
+            <p class="capitalize text-xs text-slate-400 font-bold">name</p>
+            <input
+              [ngClass]="{
+                'border-red-500':
+                  form.controls['firstName']?.touched &&
+                  form.controls['firstName']?.invalid
+              }"
+              formControlName="firstName"
+              type="text"
+              name=""
+              id="firstName"
+              placeholder="Enter your first name"
+              class="text-xs border w-full py-2 px-2 rounded-xl mb-2"
+            />
+            <input
+              formControlName="lastName"
+              type="text"
+              name=""
+              id="lastName"
+              placeholder="Enter your last name"
+              class="text-xs border w-full py-2 px-2 rounded-xl"
+            />
+          </div>
+          <div class="w-8/12 text-left self-center mb-2">
+            <p class="capitalize text-xs text-slate-400 font-bold">bio</p>
+            <textarea
+              formControlName="bio"
+              type="text"
+              name=""
+              id="bio"
+              placeholder="Enter your bio"
+              class="text-xs border w-full py-2 px-2 rounded-xl"
+            ></textarea>
+          </div>
+          <div class="w-8/12 text-left self-center mb-2">
+            <p class="capitalize text-xs text-slate-400 font-bold">phone</p>
+            <input
+              formControlName="phone"
+              type="text"
+              name=""
+              id="phone"
+              placeholder="Enter your phone"
+              class="text-xs border w-full py-2 px-2 rounded-xl"
+            />
+          </div>
+          <div class="w-8/12 text-left self-center mb-2">
+            <p class="capitalize text-xs text-slate-400 font-bold">email</p>
+            <input
+              [ngClass]="{
+                'border-red-500':
+                  form.controls['email']?.touched &&
+                  form.controls['email']?.invalid
+              }"
+              formControlName="email"
+              type="text"
+              name=""
+              id="email"
+              placeholder="Enter your email"
+              class="text-xs border w-full py-2 px-2 rounded-xl"
+            />
+          </div>
+          <div class="w-8/12 text-left self-center mb-2">
+            <p class="capitalize text-xs text-slate-400 font-bold">password</p>
+            <input
+            #password
+              [disabled]="!isChangingPassword"
+              [ngClass]="{ 'border-blue-600': isChangingPassword }"
+              type="password"
+              name=""
+              id="password"
+              placeholder="***************"
+              class="text-xs border w-full py-2 px-2 rounded-xl"
+            />
+            <a
+              (click)="isChangingPassword = !isChangingPassword"
+              class="lowercase text-blue-500 underline px-1 py-1 text-xs cursor"
+              >Click here to change password</a
+            >
+            <br />
+            <button
+            type="button"
+             (click)="changePassword()"
+              class="text-xs bg-yellow-600 hover:bg-yellow-900 py-2 px-4 text-white rounded"
+              *ngIf="isChangingPassword"
+            >
+              Change password
+            </button>
+          </div>
+          <div class="w-8/12 text-left self-center mb-2">
+            <button
+              class="text-xs bg-blue-600 py-2 px-4 text-white rounded"
+              [disabled]="isChangingPassword"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
