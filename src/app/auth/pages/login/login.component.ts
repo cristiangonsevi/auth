@@ -1,12 +1,14 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { environment } from 'src/environments/environment';
 import { SignInType } from '../../enums/signInType.enum';
 import { LoginResponse } from '../../interfaces/responses/loginResponse.model';
 import { AuthService } from '../../services/auth.service';
+import * as authAction from '../../../state/auth/auth.actions';
 declare const google: any;
 @Component({
   selector: 'app-login',
@@ -23,7 +25,8 @@ export class LoginComponent implements OnInit {
     private _localStorage: LocalStorageService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
+    private _store: Store
   ) {}
 
   ngOnInit(): void {
@@ -83,15 +86,9 @@ export class LoginComponent implements OnInit {
         icon: 'error',
       });
     }
-    this._authService.loginWithEmail(this.loginForm.value).subscribe({
-      next: (data: LoginResponse) => this.handleSignIn(data),
-      error: (err: any) =>
-        this._sweetAlert.toast({
-          title: 'Error',
-          text: err.error.message,
-          icon: 'error',
-        }),
-    });
+    this._store.dispatch(
+      authAction.LOGINREQUESTACTION({ credentials: this.loginForm.value })
+    );
   }
   handleSignIn(data: LoginResponse) {
     this._localStorage.setItem('currentDataUser', data.data);
