@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
   api: {
-    host: 'http://localhost',
-    url: 'http://localhost:3000',
+    host: 'https://chat.crisego.com',
+    url: 'https://apichat.crisego.com',
   },
   oAuth: {
     github: {
