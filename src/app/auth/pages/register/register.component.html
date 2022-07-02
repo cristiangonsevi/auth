@@ -13,7 +13,7 @@
       <form [formGroup]="registerForm" (ngSubmit)="registerWithEmail()">
         <div class="input-group relative">
           <i class="fa fa-pencil-square absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
-          <input [ngClass]="{'border-red-500' : registerForm.controls['firstName']?.touched }"
+          <input [ngClass]="{'border-red-500' : registerForm.controls['firstName']?.touched && registerForm.controls['firstName']?.invalid }"
             class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2 " type="text" placeholder="First name"
             formControlName="firstName" />
         </div>
@@ -23,12 +23,12 @@
         </div>
         <div class="input-group relative">
           <i class="fa fa-pencil-square absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
-          <input [ngClass]="{'border-red-500' : registerForm.controls['lastName']?.touched }" class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="text" placeholder="Last name"
+          <input [ngClass]="{'border-red-500' : registerForm.controls['lastName']?.touched && registerForm.controls['lastName']?.invalid }" class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="text" placeholder="Last name"
             formControlName="lastName" />
         </div>
         <div class="input-group relative">
           <i class="fa fa-envelope absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
-          <input [ngClass]="{'border-red-500' : registerForm.controls['email']?.touched }" class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="email" placeholder="Email"
+          <input [ngClass]="{'border-red-500' : registerForm.controls['email']?.touched && registerForm.controls['email']?.invalid }" class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="email" placeholder="Email"
             formControlName="email" />
         </div>
         <div class="text-red-500 text-xs"
@@ -37,7 +37,7 @@
         </div>
         <div class="input-group relative">
           <i class="fa fa-lock absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
-          <input [ngClass]="{'border-red-500' : registerForm.controls['password']?.touched }" class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="password"
+          <input [ngClass]="{'border-red-500' : registerForm.controls['password']?.touched && registerForm.controls['password']?.invalid }" class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="password"
             placeholder="Password" formControlName="password" />
         </div>
         <div class="text-red-500 text-xs"
