@@ -8,6 +8,12 @@ import { AuthGuard } from './guards/auth.guard';
 
 import { LocalStorageService } from './services/local-storage.service';
 import { SweetAlertService } from './services/sweet-alert.service';
+import { StoreModule } from '@ngrx/store';
+import { ROOT_REDUCERS } from './state/app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './state/auth/auth.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -16,7 +22,10 @@ import { SweetAlertService } from './services/sweet-alert.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(ROOT_REDUCERS),
+    EffectsModule.forRoot([AuthEffects]),
+    StoreDevtoolsModule.instrument({ name: 'TESTING'})
   ],
   providers: [SweetAlertService, LocalStorageService, AuthGuard],
   bootstrap: [AppComponent]
