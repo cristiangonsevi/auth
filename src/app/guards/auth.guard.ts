@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -6,28 +6,29 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
 import { SweetAlertService } from '../services/sweet-alert.service';
-import { UserService } from '../services/user.service';
+import * as authReducer from '../state/auth/auth.reducers';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, OnDestroy {
+  isLoggedIn: Observable<boolean> = new Observable();
   constructor(
     private _router: Router,
-    private _sweetAlert: SweetAlertService
+    private _store: Store
   ) {}
-  canActivate(): boolean {
-    const user = localStorage.getItem('currentDataUser');
-    if (!user) {
-      this._sweetAlert.toast({
-        title: 'You must be logged in',
-        icon: 'error',
-      });
-      this._router.navigate(['/auth/login']);
-      return true;
-    }
-    return true;
+  canActivate(): boolean | Observable<boolean | UrlTree>  {
+    return this._store.select(authReducer.getIsLoggedIn).pipe(
+      map((isLoggedIn) => {
+        if (!isLoggedIn) {
+          return this._router.createUrlTree(['/auth/login']);
+        }
+        return true;
+      })
+    );
   }
+  ngOnDestroy(): void {}
 }

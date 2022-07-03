@@ -1,4 +1,9 @@
-import { createReducer, on } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  createReducer,
+  createSelector,
+  on,
+} from '@ngrx/store';
 import { LOGINSUCCESSACTION, LOGOUTREQUESTACTION } from './auth.actions';
 import * as authState from './auth.state';
 
@@ -7,7 +12,7 @@ export const initialLoginState: authState.LoginState = {
   user: null,
   error: null,
 };
-export const loginReducer = createReducer(
+const _loginReducer = createReducer(
   initialLoginState,
   on(LOGINSUCCESSACTION, (state, payload) => ({
     ...state,
@@ -19,4 +24,14 @@ export const loginReducer = createReducer(
     isLoggedIn: false,
     user: null,
   }))
+);
+
+export function loginReducer(state: any, action: any) {
+  return _loginReducer(state, action);
+}
+
+const selectLoginState = createFeatureSelector<authState.LoginState>('auth');
+export const getIsLoggedIn = createSelector(
+  selectLoginState,
+  (state) => state.isLoggedIn
 );
