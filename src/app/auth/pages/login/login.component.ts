@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   githubOAuth = environment.oAuth.github;
   constructor(
     private _fb: FormBuilder,
-    private _authService: AuthService,
     private _sweetAlert: SweetAlertService,
     private _localStorage: LocalStorageService,
     private _activatedRoute: ActivatedRoute,
