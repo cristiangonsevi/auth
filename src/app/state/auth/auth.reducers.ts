@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import {  LOGINSUCCESSACTION } from './auth.actions';
+import { LOGINSUCCESSACTION, LOGOUTREQUESTACTION } from './auth.actions';
 import * as authState from './auth.state';
 
 export const initialLoginState: authState.LoginState = {
@@ -12,6 +12,11 @@ export const loginReducer = createReducer(
   on(LOGINSUCCESSACTION, (state, payload) => ({
     ...state,
     isLoggedIn: true,
-    user: payload.loginSuccessResponse.data
+    user: payload.loginSuccessResponse.data,
   })),
+  on(LOGOUTREQUESTACTION, (state) => ({
+    ...state,
+    isLoggedIn: false,
+    user: null,
+  }))
 );

@@ -75,6 +75,18 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
+  logoutRequest$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(authActions.LOGOUTREQUESTACTION),
+        tap(() => {
+          this._localStorage.deleteItem('currentDataUser');
+          this._router.navigate(['/login']);
+        })
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private _actions$: Actions,
     private _authService: AuthService,

@@ -8,6 +8,7 @@ export const LOGINGOOGLEREQUEST = '[Auth] Login Google Request';
 export const LOGINGITHUBREQUEST = '[Auth] Login Github Request';
 export const LOGINSUCCESS = '[Auth] Login Success';
 export const LOGINFAILURE = '[Auth] Login Failure';
+export const LOGOUTREQUEST = '[Auth] Logout Request';
 
 export const LOGINREQUESTACTION = createAction(
   LOGINREQUEST,
@@ -27,3 +28,4 @@ export const LOGINFAILUREACTION = createAction(
     error: ErrorResponse;
   }>()
 );
+export const LOGOUTREQUESTACTION = createAction(LOGOUTREQUEST);
