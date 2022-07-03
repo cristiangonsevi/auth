@@ -63,15 +63,7 @@ export class LoginComponent implements OnInit {
     );
   }
   customLoginMethod(token: any) {
-    this._authService?.loginWithCustomAuth(token, SignInType.GOOGLE).subscribe({
-      next: (data: any) => this.handleSignIn(data),
-      error: (err: any) =>
-        this._sweetAlert.toast({
-          title: err.error.error + ' code: ' + err.error.statusCode,
-          text: err.error.message,
-          icon: 'error',
-        }),
-    });
+    this._store.dispatch(authAction.LOGINGOOGLEREQUESTACTION({ token }));
   }
   onSubmit(): any {
     if (this.loginForm.invalid) {
