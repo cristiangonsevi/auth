@@ -9,9 +9,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { LocalStorageService } from './services/local-storage.service';
 import { SweetAlertService } from './services/sweet-alert.service';
 import { StoreModule } from '@ngrx/store';
-import { ROOT_REDUCERS } from './state/app.state';
+import { ROOT_EFFECTS, ROOT_REDUCERS } from './state/app.state';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './state/auth/auth.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
@@ -24,7 +23,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(ROOT_REDUCERS),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot(ROOT_EFFECTS),
     StoreDevtoolsModule.instrument({ name: 'TESTING'})
   ],
   providers: [SweetAlertService, LocalStorageService, AuthGuard],

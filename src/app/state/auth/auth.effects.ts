@@ -27,7 +27,6 @@ export class AuthEffects {
     this._actions$.pipe(
       ofType(authActions.LOGINGOOGLEREQUESTACTION),
       exhaustMap((action) => {
-        console.log('_________google signing', action.token);
         return this._authService
           .loginWithCustomAuth(action.token, SignInType.GOOGLE)
           .pipe(

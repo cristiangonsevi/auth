@@ -23,18 +23,28 @@
         >
           <label for="profileImg">
             <img
+              *ngIf="imgUploaded | async"
+              src="{{ host.api.url }}/user/image?name={{ imgUploaded | async }}"
+              alt="profile_photo"
+              class="w-20 p-1 aspect-square object-cover object-top rounded opacity-70 text-center"
+            />
+            <img
+              *ngIf="!(imgUploaded | async)"
               src="{{ host.api.url }}/user/image?name={{ currentUser.image }}"
               alt="profile_photo"
               class="w-20 p-1 aspect-square object-cover object-top rounded opacity-70 text-center"
             />
-            <div class="fa-2x absolute top-5 left-6" *ngIf="isUploadingImg">
+            <div
+              class="fa-2x absolute top-5 left-6"
+              *ngIf="isUploadingImg | async"
+            >
               <i
                 class="fa fa-spinner fa-spin text-white"
                 aria-hidden="true"
               ></i>
             </div>
             <i
-              *ngIf="!isUploadingImg"
+              *ngIf="!(isUploadingImg | async)"
               class="fa fa-camera text-white hover:text-blue-400 text-xl absolute top-7 left-8"
               aria-hidden="true"
             ></i>
@@ -122,7 +132,7 @@
           <div class="w-8/12 text-left self-center mb-2">
             <p class="capitalize text-xs text-slate-400 font-bold">password</p>
             <input
-            #password
+              #password
               [disabled]="!isChangingPassword"
               [ngClass]="{ 'border-blue-600': isChangingPassword }"
               type="password"
@@ -138,8 +148,8 @@
             >
             <br />
             <button
-            type="button"
-             (click)="changePassword()"
+              type="button"
+              (click)="changePassword()"
               class="text-xs bg-yellow-600 hover:bg-yellow-900 py-2 px-4 text-white rounded"
               *ngIf="isChangingPassword"
             >
