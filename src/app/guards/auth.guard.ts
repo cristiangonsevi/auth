@@ -16,19 +16,13 @@ import * as authReducer from '../state/auth/auth.reducers';
 })
 export class AuthGuard implements CanActivate, OnDestroy {
   isLoggedIn: Observable<boolean> = new Observable();
-  constructor(
-    private _router: Router,
-    private _store: Store
-  ) {}
-  canActivate(): boolean | Observable<boolean | UrlTree>  {
-    // return this._store.select(authReducer.getIsLoggedIn).pipe(
-    //   map((isLoggedIn) => {
-    //     if (!isLoggedIn) {
-    //       return this._router.createUrlTree(['/auth/login']);
-    //     }
-    //     return true;
-    //   })
-    // );
+  constructor(private _router: Router, private _store: Store) {}
+  canActivate(): boolean | Observable<boolean | UrlTree> {
+    const user = localStorage.getItem('currentDataUser');
+    if (!user) {
+      this._router.navigate(['/auth/login']);
+      return true;
+    }
     return true;
   }
   ngOnDestroy(): void {}
