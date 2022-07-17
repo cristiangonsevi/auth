@@ -1,12 +1,10 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { environment } from 'src/environments/environment';
-import { SignInType } from '../../enums/signInType.enum';
-import { LoginResponse } from '../../interfaces/responses/loginResponse.model';
-import { AuthService } from '../../services/auth.service';
+import * as authAction from '../../../state/auth/auth.actions';
 declare const google: any;
 @Component({
   selector: 'app-login',
@@ -18,12 +16,10 @@ export class LoginComponent implements OnInit {
   githubOAuth = environment.oAuth.github;
   constructor(
     private _fb: FormBuilder,
-    private _authService: AuthService,
     private _sweetAlert: SweetAlertService,
-    private _localStorage: LocalStorageService,
     private _activatedRoute: ActivatedRoute,
-    private _router: Router,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
+    private _store: Store
   ) {}
 
   ngOnInit(): void {
@@ -42,8 +38,9 @@ export class LoginComponent implements OnInit {
     if (!token) return;
     const data = JSON.parse(atob(token));
     if (data) {
-      this._localStorage.setItem('currentDataUser', data.data);
-      this.handleSignIn(data);
+      this._store.dispatch(
+        authAction.LOGINSUCCESSACTION({ loginSuccessResponse: data })
+      );
     }
   }
   renderGoogleBtn() {
@@ -56,19 +53,11 @@ export class LoginComponent implements OnInit {
     });
     google.accounts.id.renderButton(
       document.getElementById('buttonDiv'),
-      { theme: 'outline', size: 'medium' } // customization attributes
+      { theme: 'outline', size: 'medium' }
     );
   }
   customLoginMethod(token: any) {
-    this._authService?.loginWithCustomAuth(token, SignInType.GOOGLE).subscribe({
-      next: (data: any) => this.handleSignIn(data),
-      error: (err: any) =>
-        this._sweetAlert.toast({
-          title: err.error.error + ' code: ' + err.error.statusCode,
-          text: err.error.message,
-          icon: 'error',
-        }),
-    });
+    this._store.dispatch(authAction.LOGINGOOGLEREQUESTACTION({ token }));
   }
   onSubmit(): any {
     if (this.loginForm.invalid) {
@@ -83,23 +72,8 @@ export class LoginComponent implements OnInit {
         icon: 'error',
       });
     }
-    this._authService.loginWithEmail(this.loginForm.value).subscribe({
-      next: (data: LoginResponse) => this.handleSignIn(data),
-      error: (err: any) =>
-        this._sweetAlert.toast({
-          title: 'Error',
-          text: err.error.message,
-          icon: 'error',
-        }),
-    });
-  }
-  handleSignIn(data: LoginResponse) {
-    this._localStorage.setItem('currentDataUser', data.data);
-    this._router.navigate(['/home']);
-    this._sweetAlert.toast({
-      title: 'Welcome again',
-      text: data.data.firstName + ' ' + data.data.lastName,
-      icon: 'success',
-    });
+    this._store.dispatch(
+      authAction.LOGINREQUESTACTION({ credentials: this.loginForm.value })
+    );
   }
 }

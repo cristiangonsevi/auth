@@ -20,7 +20,15 @@
           aria-haspopup="true"
         >
           <img
+            *ngIf="imgUploaded | async"
+            src="{{ host.api.url }}/user/image?name={{ imgUploaded | async }}"
+            alt="profile_photo"
+            class="w-9 md:w-12 mr-2 aspect-square object-cover object-top rounded"
+          />
+          <img
+            *ngIf="!(imgUploaded | async)"
             src="{{ host.api.url }}/user/image?name={{ currentUser.image }}"
+            alt="profile_photo"
             class="w-9 md:w-12 mr-2 aspect-square object-cover object-top rounded"
           />
           {{ currentUser.firstName }} {{ currentUser.lastName }}

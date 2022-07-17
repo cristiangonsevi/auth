@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { environment } from 'src/environments/environment';
@@ -20,7 +20,9 @@ export class RegisterComponent implements OnInit {
     private _sweetAlert: SweetAlertService,
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
-    private _localStorage: LocalStorageService
+    private _localStorage: LocalStorageService,
+    private _router: Router,
+    private _ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +50,10 @@ export class RegisterComponent implements OnInit {
   renderGoogleBtn() {
     google.accounts.id.initialize({
       client_id: environment.oAuth.google.client_id,
-      callback: (response: any) => {
-        this.customRegisterMethod(response.credential);
-      },
+      callback: (response: any) =>
+        this._ngZone.run(() => {
+          this.customRegisterMethod(response.credential);
+        }),
     });
     google.accounts.id.renderButton(
       document.getElementById('buttonDiv'),
@@ -81,6 +84,8 @@ export class RegisterComponent implements OnInit {
     });
   }
   handleSignIn(data: any) {
+    this._localStorage.setItem('currentDataUser', data.data);
+    this._router.navigate(['/home']);
     this._sweetAlert.toast({
       title: 'Registration Successful',
       text: data.message,
@@ -99,6 +104,8 @@ export class RegisterComponent implements OnInit {
     });
   }
   handleCustomAuthSignIn(data: any) {
+    this._localStorage.setItem('currentDataUser', data.data);
+    this._router.navigate(['/home']);
     this._sweetAlert.toast({
       title: 'Success',
       text: data.message,
