@@ -6,22 +6,22 @@
         <div class="input-group relative">
           <i class="fa fa-envelope absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
           <input formControlName="email"
-            [ngClass]="{'border-red-500' : loginForm.controls['email']?.touched && loginForm.controls['email']?.invalid }"
+            [ngClass]="{'border-red-500' : loginForm.controls['email'].touched && loginForm.controls['email'].invalid }"
             class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="email" placeholder="Email" />
         </div>
         <div class="text-red-500 text-xs"
-          *ngIf="loginForm.controls['email'].touched && loginForm.controls['email']?.invalid">
+          *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].invalid">
           email is required
         </div>
         <div class="input-group relative">
           <i class="fa fa-lock absolute top-5 left-2 text-slate-400" aria-hidden="true"></i>
           <input formControlName="password"
-            [ngClass]="{'border-red-500' : loginForm.controls['password']?.touched && loginForm.controls['password']?.invalid }"
+            [ngClass]="{'border-red-500' : loginForm.controls['password'].touched && loginForm.controls['password'].invalid }"
             class="rounded text-slate-400 border w-full text-sm pl-8 py-2 my-2" type="password"
             placeholder="Password" />
         </div>
         <div class="text-red-500 text-xs"
-          *ngIf="loginForm.controls['password'].touched && loginForm.controls['password']?.invalid">
+          *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid">
           password is required
         </div>
         <div class="btn-container text-center">

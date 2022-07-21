@@ -72,8 +72,8 @@
             <input
               [ngClass]="{
                 'border-red-500':
-                  form.controls['firstName']?.touched &&
-                  form.controls['firstName']?.invalid
+                  form.controls['firstName'].touched &&
+                  form.controls['firstName'].invalid
               }"
               formControlName="firstName"
               type="text"
@@ -118,8 +118,8 @@
             <input
               [ngClass]="{
                 'border-red-500':
-                  form.controls['email']?.touched &&
-                  form.controls['email']?.invalid
+                  form.controls['email'].touched &&
+                  form.controls['email'].invalid
               }"
               formControlName="email"
               type="text"
