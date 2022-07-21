@@ -10,10 +10,12 @@ const router: Routes = [
       {
         path: 'register',
         component: RegisterComponent,
+        title: 'Sign up and enjoy'
       },
       {
         path: 'login',
         component: LoginComponent,
+        title: 'Sign In to your account'
       },
       {
         path: '**',
