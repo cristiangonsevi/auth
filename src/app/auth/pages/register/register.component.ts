@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
@@ -13,12 +13,12 @@ declare const google: any;
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  registerForm!: FormGroup;
+  registerForm!: UntypedFormGroup;
   githubOAuth = environment.oAuth.github;
   constructor(
     private _authService: AuthService,
     private _sweetAlert: SweetAlertService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _activatedRoute: ActivatedRoute,
     private _localStorage: LocalStorageService,
     private _router: Router,

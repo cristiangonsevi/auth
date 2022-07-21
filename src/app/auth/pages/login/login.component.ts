@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
@@ -12,10 +12,10 @@ declare const google: any;
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+  loginForm!: UntypedFormGroup;
   githubOAuth = environment.oAuth.github;
   constructor(
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _sweetAlert: SweetAlertService,
     private _activatedRoute: ActivatedRoute,
     private _ngZone: NgZone,

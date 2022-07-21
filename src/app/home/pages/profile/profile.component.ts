@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/auth/interfaces/user.model';
@@ -18,14 +18,14 @@ import { environment } from 'src/environments/environment';
 export class ProfileComponent implements OnInit {
   currentUser!: User;
   host = environment;
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   isUploadingImg: Observable<boolean> = new Observable();
   imgUploaded: Observable<string | null> = new Observable();
   isChangingPassword: boolean = false;
   @ViewChild('password') password!: ElementRef;
   constructor(
     private _userService: UserService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _sweetAlert: SweetAlertService,
     private _localStorageService: LocalStorageService,
     private _store: Store
