@@ -16,6 +16,6 @@ WORKDIR /usr/share/nginx/html
 
 RUN rm -rf ./*
 
-COPY --from=builder /app/dist/weather_app .
+COPY --from=builder /app/dist/auth .
 
 CMD ["nginx", "-g", "daemon off;"]
