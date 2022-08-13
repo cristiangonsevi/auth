@@ -1,12 +1,16 @@
 version: "3.9"
 services:
-  angular:
-    container_name: auth_ui
+  chat_ui:
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    ports:
-      - "4200:4200"
-    volumes:
-      - .:/app
-      - /app/node_modules
+      dockerfile: Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chat.rule=Host(`chat.crisego.com`)"
+      - "traefik.http.routers.chat.entrypoints=websecure"
+      - "traefik.http.routers.chat.tls=true"
+    networks:
+      - traefik-docker-compose_default
+networks:
+  traefik-docker-compose_default:
+    external: true
