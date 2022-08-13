@@ -12,6 +12,8 @@ RUN  npm run build -- --aot
 
 FROM nginx:latest
 
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
 WORKDIR /usr/share/nginx/html
 
 RUN rm -rf ./*
