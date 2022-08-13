@@ -1,0 +1,23 @@
+name: Deploy to server
+on:
+  pull_request:
+    types:
+      - "closed"
+jobs:
+  build:
+    name: Build
+    if: github.event.pull_request.merged == true
+    runs-on: [self-hosted, prod]
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Destroy old compose build"
+        run: |
+          docker compose down
+        
+      - name: "Build new compose"
+        run: |
+          docker compose build --no-cache
+      
+      - name: "Start new compose"
+        run: |
+          docker compose up -d
