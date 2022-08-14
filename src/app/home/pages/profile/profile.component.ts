@@ -7,7 +7,6 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/auth/interfaces/user.model';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { UserService } from 'src/app/services/user.service';
 import {
@@ -37,7 +36,6 @@ export class ProfileComponent implements OnInit {
     private _userService: UserService,
     private _fb: UntypedFormBuilder,
     private _sweetAlert: SweetAlertService,
-    private _localStorageService: LocalStorageService,
     private _store: Store
   ) {}
 
@@ -76,21 +74,12 @@ export class ProfileComponent implements OnInit {
     );
   }
   uploadImage(event: any) {
-    // this.isUploadingImg = !this.isUploadingImg;
     const [file] = event.target.files;
     const formData = new FormData();
     formData.append('image', file);
     this._store.dispatch(
       CHANGEIMAGEREQUESTACTION({ image: formData, userId: this.currentUser.id })
     );
-  }
-  handleUpdateUserImage(resp: any) {
-    this.currentUser.image = resp.file.filename;
-    this._localStorageService.setItem('currentDataUser', this.currentUser);
-    this._sweetAlert.toast({
-      title: 'Image updated successfully!',
-      icon: 'success',
-    });
   }
   changePassword(): any {
     const password = this.password.nativeElement.value;
