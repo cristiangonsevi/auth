@@ -1,13 +1,23 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/auth/interfaces/user.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SweetAlertService } from 'src/app/services/sweet-alert.service';
 import { UserService } from 'src/app/services/user.service';
-import { CHANGEIMAGEREQUESTACTION } from 'src/app/state/profile/profile.actions';
-import { getImage, getIsLoadingImg } from 'src/app/state/profile/profile.reducers';
+import {
+  CHANGEIMAGEREQUESTACTION,
+  CHANGEUSERDATAREQUESTACTION,
+} from 'src/app/state/profile/profile.actions';
+import {
+  getImage,
+  getIsLoadingImg,
+} from 'src/app/state/profile/profile.reducers';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -33,8 +43,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this._userService.getUserLoggedIn();
-    this.isUploadingImg = this._store.select(getIsLoadingImg)
-    this.imgUploaded = this._store.select(getImage)   
+    this.isUploadingImg = this._store.select(getIsLoadingImg);
+    this.imgUploaded = this._store.select(getImage);
     this.initForm();
   }
 
@@ -61,17 +71,9 @@ export class ProfileComponent implements OnInit {
         icon: 'error',
       });
     }
-    this._userService.updateUserData(value, this.currentUser.id).subscribe({
-      next: (resp) => this.handleResponse(resp),
-      error: (err) => console.log(err),
-    });
-  }
-  handleResponse(resp: any) {
-    this._localStorageService.setItem('currentDataUser', resp.data);
-    this._sweetAlert.toast({
-      title: 'Information updated successfully!',
-      icon: 'success',
-    });
+    this._store.dispatch(
+      CHANGEUSERDATAREQUESTACTION({ user: value, userId: this.currentUser.id })
+    );
   }
   uploadImage(event: any) {
     // this.isUploadingImg = !this.isUploadingImg;
