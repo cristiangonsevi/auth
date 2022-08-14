@@ -81,15 +81,8 @@ export class ProfileComponent implements OnInit {
     this._store.dispatch(
       CHANGEIMAGEREQUESTACTION({ image: formData, userId: this.currentUser.id })
     );
-    // this._userService
-    //   .updatedUserImage(formData, this.currentUser.id)
-    //   .subscribe({
-    //     next: (resp) => this.handleUpdateUserImage(resp),
-    //     error: (err) => console.log(err),
-    //   });
   }
   handleUpdateUserImage(resp: any) {
-    // this.isUploadingImg = false;
     this.currentUser.image = resp.file.filename;
     this._localStorageService.setItem('currentDataUser', this.currentUser);
     this._sweetAlert.toast({
