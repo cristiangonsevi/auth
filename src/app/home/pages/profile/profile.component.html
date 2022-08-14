@@ -143,8 +143,8 @@
             />
             <a
               (click)="isChangingPassword = !isChangingPassword"
-              class="lowercase text-blue-500 underline px-1 py-1 text-xs cursor"
-              >Click here to change password</a
+              class="lowercase text-blue-500 underline px-1 py-1 text-xs cursor-pointer"
+              >Click here {{ isChangingPassword ? 'to cancel change password' : 'to change password'}}</a
             >
             <br />
             <button
