@@ -31,7 +31,12 @@
             alt="profile_photo"
             class="w-9 md:w-12 mr-2 aspect-square object-cover object-top rounded"
           />
-          {{ currentUser.firstName }} {{ currentUser.lastName }}
+          <p *ngIf="!(userDataUpdated | async)">
+            {{ currentUser.firstName }} {{ currentUser.lastName }}
+          </p>
+          <p *ngIf="userDataUpdated | async">
+            {{ (userDataUpdated | async)?.firstName }} {{ (userDataUpdated | async)?.lastName }}
+          </p>
           <svg
             class="-mr-1 ml-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +87,7 @@
         <div class="py-0" role="none">
           <a
             (click)="logout()"
-            class="text-red-800 hover:bg-slate-200 block m-3 rounded-2xl px-4 py-3 text-sm"
+            class="text-red-800 hover:bg-slate-200 block m-3 rounded-2xl px-4 py-3 text-sm cursor-pointer"
             role="menuitem"
             tabindex="-1"
             id="menu-item-1"
