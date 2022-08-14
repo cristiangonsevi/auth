@@ -7,6 +7,8 @@ import {
 import {
   CHANGEIMAGEREQUESTACTION,
   CHANGEIMAGESUCCESSACTION,
+  CHANGEUSERDATAREQUESTACTION,
+  CHANGEUSERDATASUCCESSACTION,
   GETNEWIMAGEACTION,
 } from './profile.actions';
 import { ProfileState } from './profile.state';
@@ -30,7 +32,9 @@ const _profileReducer = createReducer(
   })),
   on(GETNEWIMAGEACTION, (state) => ({
     ...state,
-  }))
+  })),
+  on(CHANGEUSERDATAREQUESTACTION, (state, { user }) => ({ ...state, user })),
+  on(CHANGEUSERDATASUCCESSACTION, (state, { user }) => ({ ...state, user: user.data }))
 );
 
 export function profileReducer(state: any, action: any) {

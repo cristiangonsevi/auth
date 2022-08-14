@@ -10,8 +10,8 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'profile', component: ProfileComponent },
+      { path: 'dashboard', component: DashboardComponent, title: 'Dashoboart - See your profile' },
+      { path: 'profile', component: ProfileComponent, title: 'Profile - update your info.' },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

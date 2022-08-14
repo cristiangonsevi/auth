@@ -1,0 +1,11 @@
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm i -g npm@8.* && npm i -g @angular/cli@14 && npm i
+
+COPY . /app
+
+CMD ["npm", "start"]

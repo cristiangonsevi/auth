@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  chat_ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chat.rule=Host(`chat.crisego.com`)"
+      - "traefik.http.routers.chat.entrypoints=websecure"
+      - "traefik.http.routers.chat.tls=true"
+    networks:
+      - traefik-docker-compose_default
+networks:
+  traefik-docker-compose_default:
+    external: true

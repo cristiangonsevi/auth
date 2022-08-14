@@ -7,6 +7,8 @@ import { UserService } from 'src/app/services/user.service';
 import {
   CHANGEIMAGEREQUESTACTION,
   CHANGEIMAGESUCCESSACTION,
+  CHANGEUSERDATAREQUESTACTION,
+  CHANGEUSERDATASUCCESSACTION,
   GETNEWIMAGEACTION,
 } from './profile.actions';
 
@@ -48,6 +50,32 @@ export class profileEffects {
         return { ...action, user: currentUser };
       })
     )
+  );
+
+  changeUserDataRequestAction$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CHANGEUSERDATAREQUESTACTION),
+      exhaustMap((action) => {
+        return this._userService
+          .updateUserData(action.user, action.userId)
+          .pipe(map((user: any) => CHANGEUSERDATASUCCESSACTION({ user })));
+      })
+    )
+  );
+
+  changeUserDataSuccessAction$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CHANGEUSERDATASUCCESSACTION),
+        map((action) => {
+          this._localStorageService.setItem('currentDataUser', action.user.data);
+          this._sweetAlert.toast({
+            title: 'Information updated successfully!',
+            icon: 'success',
+          });
+        })
+      ),
+    { dispatch: false }
   );
 
   constructor(

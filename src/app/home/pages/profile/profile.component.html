@@ -45,7 +45,7 @@
             </div>
             <i
               *ngIf="!(isUploadingImg | async)"
-              class="fa fa-camera text-white hover:text-blue-400 text-xl absolute top-7 left-8"
+              class="fa fa-camera text-white hover:text-blue-400 text-xl absolute top-7 left-8 cursor-pointer"
               aria-hidden="true"
             ></i>
           </label>
@@ -60,7 +60,7 @@
         <div class="w-6/12 md:w-4/6 self-center text-left pl-5">
           <label
             for="profileImg"
-            class="uppercase text-xs text-slate-400 cursor"
+            class="uppercase text-xs text-slate-400 cursor-pointer"
             >change photo</label
           >
         </div>
@@ -72,8 +72,8 @@
             <input
               [ngClass]="{
                 'border-red-500':
-                  form.controls['firstName']?.touched &&
-                  form.controls['firstName']?.invalid
+                  form.controls['firstName'].touched &&
+                  form.controls['firstName'].invalid
               }"
               formControlName="firstName"
               type="text"
@@ -118,8 +118,8 @@
             <input
               [ngClass]="{
                 'border-red-500':
-                  form.controls['email']?.touched &&
-                  form.controls['email']?.invalid
+                  form.controls['email'].touched &&
+                  form.controls['email'].invalid
               }"
               formControlName="email"
               type="text"
@@ -143,8 +143,8 @@
             />
             <a
               (click)="isChangingPassword = !isChangingPassword"
-              class="lowercase text-blue-500 underline px-1 py-1 text-xs cursor"
-              >Click here to change password</a
+              class="lowercase text-blue-500 underline px-1 py-1 text-xs cursor-pointer"
+              >Click here {{ isChangingPassword ? 'to cancel change password' : 'to change password'}}</a
             >
             <br />
             <button
